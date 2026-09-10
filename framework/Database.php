@@ -7,9 +7,9 @@ class Database
 
     public function __construct()
     {
-        $dsn = 'mysql:host=127.0.0.1;dbname=Web-php;charset=utf8mb4';
+        $dsn = 'mysql:host=127.0.0.1;dbname=web_app;charset=utf8mb4';
         
-        $this->connection = new PDO($dsn, 'admin', '000000');
+        $this->connection = new PDO($dsn, 'root', '0000');
     }
 
     public function query($sql, $params = [])
