@@ -5,6 +5,7 @@ use App\Controllers\HomeController;
 use App\Controllers\LinksController;
 use App\Controllers\PostController;
 use Framework\Middleware\Authenticated;
+use App\Controllers\AuthController;
 
 
 $router->get('/',       [HomeController::class,     'index']);
@@ -17,6 +18,8 @@ $router->get('/links/create',       [LinksController::class,     'create'], Auth
 $router->post('/links/store',       [LinksController::class,     'store'],  Authenticated::class);
 $router->delete('/links/delete',    [LinksController::class,     'destroy'],  Authenticated::class);
 $router->get('/links/edit',         [LinksController::class,     'edit'],  Authenticated::class);
-$router->put('/links/update',      [LinksController::class,     'update'],  Authenticated::class);
+$router->put('/links/update',       [LinksController::class,     'update'],  Authenticated::class);
+
+$router->get('/login',              [AuthController::class,     'login']);
 
 ?>

@@ -10,14 +10,17 @@
         <div class="mb-4">
             <label class="text-sm font-semibold text-gray-900">Título</label>
             <div class="mt-2">
-                <input type="text" name="title" class="w-full outline-1 outline-gray-300 rounded-md px-3 py-2 text-gray-900" value="<?= $_POST['title'] ??'' ?>">
+                <input type="text" name="title" class="w-full outline-1 outline-gray-300 rounded-md px-3 py-2 text-gray-900" value="<?= old('title') ?>">
             </div>
         </div>
 
         <div class="mb-4">
             <label class="text-sm font-semibold text-gray-900">Url</label>
             <div class="mt-2">
-                <input type="text" name="url" class="w-full outline-1 outline-gray-300 rounded-md px-3 py-2 text-gray-900" value="<?= $_POST['url'] ??'' ?>">
+                <input type="text" 
+                name="url" 
+                class="w-full outline-1 outline-gray-300 rounded-md px-3 py-2 text-gray-900" 
+                value="<?= old('url') ?>">
             </div>
         </div>
 
