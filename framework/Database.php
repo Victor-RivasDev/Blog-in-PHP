@@ -1,4 +1,6 @@
 <?php
+namespace Framework;
+Use PDO;
 
 class Database 
 {
@@ -7,9 +9,13 @@ class Database
 
     public function __construct()
     {
-        $dsn = 'mysql:host=127.0.0.1;dbname=web_app;charset=utf8mb4';
+        $dsn = sprintf('mysql:host=%s;dbname=%s;charset=%s', 
+        config('host'),
+        config('database'),
+        config('charset')
+        );
         
-        $this->connection = new PDO($dsn, 'root', '0000');
+        $this->connection = new PDO($dsn, config('username'), config('password'), config('options'));
     }
 
     public function query($sql, $params = [])

@@ -1,33 +1,33 @@
 <?php
+namespace App\Controllers;
+use Framework\Validator;
+
+
 
 class LinksController
 {
     public function index()
     {
-        $title = 'Proyectos';
-        $db = new Database();
-
-        $links = $db
-        ->query('SELECT * FROM links ORDER BY id DESC LIMIT 6')
-        ->get();
 
 
-       require __DIR__. '/../../resources/links.template.php';
+       view('links', ['title' => 'Proyectos', 'links' => db()->query('SELECT * FROM links ORDER BY id DESC LIMIT 6')->get()
+        ]);
     }
 
 
     public function create()
     {
         $title = 'Crear Proyecto';
-        require __DIR__. '/../../resources/links-create.template.php';
+        view('links-create', [
+            'title' => 'Registrar Proyecto'
+        ]);
     }
 
     public function edit()
     {
         $title = 'Editar Proyecto';
-        $db = new Database();
 
-        $link = $db
+        $link = db()
         ->query('SELECT * FROM links WHERE id = :id', [
             'id' => $_GET['id'] ?? null,
         ])
@@ -43,9 +43,8 @@ class LinksController
             'url'           => 'required|url|max:190',
             'description'   => 'required|min:3|max:500',
         ]);
-        $db = new Database();
 
-        $link = $db
+        $link = db()
         ->query('SELECT * FROM links WHERE id = :id', [
             'id' => $_GET['id'] ?? null,
         ])
@@ -61,8 +60,8 @@ class LinksController
                     'id'            => $link['id'],
                 ]
             );
-            header('Location: /links');
-            exit;
+            redirect('/links');
+
         }
         $errors = $validator->errors();
         $title = 'Editar Proyecto';
@@ -72,13 +71,12 @@ class LinksController
 
     public function destroy()
     {
-        $db = new Database();
-        $db->query('DELETE FROM links WHERE id = :id', [
+        db()->query('DELETE FROM links WHERE id = :id', [
             'id' => $_POST['id'] ?? null,
         ]);
 
-        header('Location: /links');
-        exit;
+        redirect('/links');
+
     }
 
 
@@ -92,8 +90,7 @@ class LinksController
         ]);
 
         if ($validator->passes()) {
-            $db = new Database();
-            $db->query(
+            db()->query(
                 'INSERT INTO links (title, url, description) VALUES (:title, :url, :description)',
                 [
                     'title'         =>  $_POST['title'],
@@ -101,8 +98,7 @@ class LinksController
                     'description'   =>  $_POST['description'],
                 ]
             );
-            header('Location: /links');
-            exit;
+            redirect('/links');
         } else {
             $errors = $validator->errors();
         }

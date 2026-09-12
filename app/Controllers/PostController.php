@@ -1,18 +1,22 @@
 <?php
+namespace App\Controllers;
+
 
 class PostController
 {
     public function index()
     {
-        $title = 'Publicaciones';
-        $db = new Database();
-
-        $posts = $db
-        ->query('SELECT * FROM posts ORDER BY id DESC LIMIT 6')
-        ->get();
 
 
-        require __DIR__. '/../../resources/post.template.php';
+        $posts = db()->query('SELECT * FROM posts WHERE id = :id', [
+            'id' => $_GET['id'] ?? null,
+        ])->firstOrFail();
+
+
+
+        view('post', [
+            'title' => 'Proyector', 
+            'posts' => $posts]);
     }
 }
 

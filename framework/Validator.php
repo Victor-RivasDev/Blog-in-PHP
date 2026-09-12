@@ -1,5 +1,8 @@
 <?php
 
+namespace Framework;
+
+
 class Validator
 {
     protected $errors = [];
