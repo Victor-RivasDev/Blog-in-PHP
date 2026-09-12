@@ -1,5 +1,6 @@
 <?php
 namespace Framework;
+use Framework\Middleware\Middleware;
 class Router
 {
     protected $routes = [];
@@ -51,9 +52,7 @@ class Router
 
 
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
         $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD']; //GET, POST, DELETE
-
         $action = $this->routes[$method][$uri]['action'] ?? null;
 
       /*   echo '<pre>';
@@ -66,7 +65,8 @@ class Router
         }
         $middleware = $this->routes[$method][$uri]['middleware'] ?? null;
         if ($middleware) {
-            (new $middleware())();
+            Middleware::run(new $middleware());
+            //(new $middleware())();
 /*                 $middlewareInstance = new $middleware();
                 $middleware(); */
         }

@@ -15,7 +15,7 @@ class PostController
 
 
         view('post', [
-            'title' => 'Proyector', 
+            'title' => 'Publicacion: ' . $post['title'],
             'post' => $post]);
     }
 }
