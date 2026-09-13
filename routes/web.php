@@ -21,5 +21,7 @@ $router->get('/links/edit',         [LinksController::class,     'edit'],  Authe
 $router->put('/links/update',       [LinksController::class,     'update'],  Authenticated::class);
 
 $router->get('/login',              [AuthController::class,     'login']);
+$router->post('/login',             [AuthController::class,     'authenticate']);
+$router->post('/logout',             [AuthController::class,     'logout'], Authenticated::class);
 
 ?>

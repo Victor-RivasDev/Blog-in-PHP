@@ -40,7 +40,8 @@ class Validator
             'min'      => strlen($value) < (int)$param ? "El campo {$field} debe tener al menos {$param} caracteres" : null,
             'max'      => strlen($value) > (int)$param ? "El campo {$field} no puede tener más de {$param} caracteres" : null,
             'url'      => !filter_var($value, FILTER_VALIDATE_URL) ? "El campo {$field} debe ser una URL válida" : null,
-            default    => null,
+            'email'    => !filter_var($value, FILTER_VALIDATE_EMAIL) ? "El campo {$field} debe ser un correo electrónico válido" : null,
+            default    => throw new \InvalidArgumentException("Regla de validación desconocida: {$name}"),
         };
     }
     protected function validateRequired(string $field, string $value): ?string

@@ -39,4 +39,9 @@ class Database
         }
         return $result;
     }
+
+    public function first()
+    {
+        return $this->statement->fetch();
+    }
 }
