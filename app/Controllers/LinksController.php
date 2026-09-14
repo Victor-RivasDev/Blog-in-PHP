@@ -38,7 +38,7 @@ class LinksController
 
     public function update()
     {
-        $validator = new Validator($_POST, [
+         Validator::make($_POST, [
             'title'         => 'required|min:3|max:190',
             'url'           => 'required|url|max:190',
             'description'   => 'required|min:3|max:500',
@@ -50,7 +50,7 @@ class LinksController
         ])
         ->firstOrFail();
 
-        if ($validator->passes()) {
+
             db()->query(
                 'UPDATE links SET title = :title, url = :url, description = :description WHERE id = :id',
                 [
@@ -61,12 +61,6 @@ class LinksController
                 ]
             );
             redirect('/links');
-
-        }
-        $errors = $validator->errors();
-        $title = 'Editar Proyecto';
-
-        require __DIR__. '/../../resources/links-edit.template.php';
     }
 
     public function destroy()
@@ -82,14 +76,14 @@ class LinksController
 
     public function store()
     {
-        $validator = new Validator($_POST, [
+        Validator::make($_POST, [
             'title'         => 'required|min:3|max:190',
             'url'           => 'required|url|max:190',
             'description'   => 'required|min:3|max:500',
 
         ]);
 
-        if ($validator->passes()) {
+
             db()->query(
                 'INSERT INTO links (title, url, description) VALUES (:title, :url, :description)',
                 [
@@ -99,11 +93,6 @@ class LinksController
                 ]
             );
             redirect('/links');
-        } else {
-            $errors = $validator->errors();
-        }
-
-        require __DIR__. '/../../resources/links-create.template.php';
     }
 }
 
