@@ -1,6 +1,9 @@
 <?php
+
 namespace app\Controllers;
+use Framework\Authenticate;
 use Framework\Validator;
+
 
 class AuthController
 {
@@ -18,19 +21,13 @@ class AuthController
         ]);
 
         if ($validator->passes()) {
-            $user = db()->query('SELECT * FROM users WHERE email = :email', [
-                'email' => $_POST['email']
-            ])->first();
-
-            if ($user && password_verify($_POST['password'], $user['password'])) { // password 
-                $_SESSION['user'] = [
-                    'id'    => $user['id'],
-                    'email' => $user['email'],
-                    'name'  => $user['name']
-                ];
-
-                redirect('/');
-            } 
+           $login = (new Authenticate())->login(
+            $_POST['email'],
+            $_POST['password']
+           );
+           if ($login) {
+            redirect('/');
+           } 
         }   
         
         view('login', [
@@ -39,8 +36,7 @@ class AuthController
 
     public function logout()
     {
-        unset($_SESSION['user']);
-        session_destroy();
-        redirect('/');
+        (new Authenticate())->logout();
+        redirect('/login');
     }
 }
