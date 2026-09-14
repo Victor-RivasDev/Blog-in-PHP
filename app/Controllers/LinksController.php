@@ -51,7 +51,7 @@ class LinksController
         ->firstOrFail();
 
         if ($validator->passes()) {
-            $db->query(
+            db()->query(
                 'UPDATE links SET title = :title, url = :url, description = :description WHERE id = :id',
                 [
                     'title'         => $_POST['title'],
