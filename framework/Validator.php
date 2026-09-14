@@ -64,6 +64,8 @@ class Validator
     }
     protected function redirectIfFailed(): void
     {
+        $session = new SessionManager();
+        $session->setFlash('errors', $this->errors);
         back();
     }
     public static function make(array $data, array $rules, bool $autoRedirect = true): self
