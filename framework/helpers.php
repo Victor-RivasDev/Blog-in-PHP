@@ -53,9 +53,16 @@ if (!function_exists('config')) {
 }
 
 if (!function_exists('redirect')) {
-    function redirect(string $url): void
+    function redirect(string $uri, string|null $message = null, int $status = 302): void
     {
-        header("Location: {$url}");
+        if ($message)
+        {
+            session()->setFlash('message', $message);
+        }
+
+        http_response_code($status);
+        
+        header("Location: /" . normalize_path($uri));
         exit;
     }
 }
@@ -122,5 +129,20 @@ if (!function_exists('errors')) {
         $html .= '</ul>';
 
         return $html;
+    }
+}
+if (!function_exists('alert')) {
+    function alert(): string
+    {
+        $message = session()->getFlash('message');
+        if (!$message) {
+            return '';
+        }
+        return <<<HTML
+        <div class="bg-blue-100 border border-blue-400 text-blue-700 text-xs px-2 py-1 rounded mb-4">
+            <strong class="font-bold">&rarr;</strong>
+            {$message}
+        </div>
+        HTML;
     }
 }

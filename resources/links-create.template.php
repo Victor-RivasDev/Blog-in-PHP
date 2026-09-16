@@ -6,6 +6,8 @@
 </div>
 
 <div class="w-full max-w-xl mx-auto">
+    <?= alert() ?>
+
     <form action="/links/store" method="POST">
         <div class="mb-4">
             <label class="text-sm font-semibold text-gray-900">Título</label>

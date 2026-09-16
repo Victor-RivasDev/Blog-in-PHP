@@ -60,7 +60,7 @@ class LinksController
                     'id'            => $link['id'],
                 ]
             );
-            redirect('/links');
+            redirect('/links/edit?id=' . $link['id'], 'Proyecto actualizado correctamente.');
     }
 
     public function destroy()
@@ -92,7 +92,7 @@ class LinksController
                     'description'   =>  $_POST['description'],
                 ]
             );
-            redirect('/links');
+            redirect('/links/create', 'Proyecto registrado correctamente.');
     }
 }
 
