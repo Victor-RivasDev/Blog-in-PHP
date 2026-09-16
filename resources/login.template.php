@@ -35,13 +35,7 @@
         </div>
     </form>
 
-    <?php if (!empty($errors)): ?>
-    <ul class="mt-4 text-red-500">
-        <?php foreach ($errors as $error): ?>
-        <li class="text-xs">&rarr; <?= $error ?></li>
-        <?php endforeach; ?>
-    </ul>
-    <?php endif; ?>
+    <?= errors() ?>
 </div>
 
 <?php require __DIR__ . '/partials/footer.php'; ?>

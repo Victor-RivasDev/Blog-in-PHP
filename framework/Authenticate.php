@@ -11,11 +11,11 @@ class Authenticate
             ])->first();
 
             if ($user && password_verify($password, $user['password'])) { // password 
-                $_SESSION['user'] = [
+                session()->set('user', [
                     'id'    => $user['id'],
                     'email' => $user['email'],
                     'name'  => $user['name']
-                ];
+                ]);
 
                 return true;
             } 
@@ -25,7 +25,8 @@ class Authenticate
 
     public function logout(): void
     {
-        unset($_SESSION['user']);
+        //unset($_SESSION['user']);
+        session()->remove('user');
         session_destroy();
 
     }

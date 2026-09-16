@@ -1,5 +1,6 @@
 <?php
 use Framework\Database;
+use Framework\SessionManager;
 
 if (!function_exists('root_path')) {
     function root_path(string $path = ''): string
@@ -88,5 +89,30 @@ if (!function_exists('back')) {
     {
         header('Location: ' . $_SERVER['HTTP_REFERER'] ?? '/');
         exit;
+    }
+}
+
+if (!function_exists('session')) {
+    function session(): SessionManager
+    {
+        return new SessionManager();
+        
+    }
+}
+
+if (!function_exists('errors')) {
+    function errors(): string
+    {
+        $errors = session()->getFlash('errors') ?? [];
+
+        $html = '<ul class="mt-4 text-red-500">';
+
+        
+        foreach ($errors as $error) {
+            $html .= "<li class='text-xs'>&rarr; {$error}</li>";
+        }
+        $html .= '</ul>';
+
+        return $html;
     }
 }
