@@ -66,6 +66,10 @@ class Validator
     {
         session()->setFlash('errors', $this->errors);
 
+        foreach ($this->data as $key => $value){
+            session()->setFlash("old_$key", $value);
+        }
+
         back();
     }
     public static function make(array $data, array $rules, bool $autoRedirect = true): self
